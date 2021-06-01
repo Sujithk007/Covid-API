@@ -34,9 +34,9 @@ app.get("/", (req, res) => {
   res.send(sg);
 });
 
-app.listen(3000, async() =>{
+app.listen( process.env.PORT || 9000, async () => {
   await update();
-  console.log("Server started at 3000...........");
+  console.log("Server started at 9000...........");
   setInterval(async () => {
     const response = JSON.parse(
       CircularJSON.stringify(
