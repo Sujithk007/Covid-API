@@ -26,7 +26,7 @@ const update =  async()=>{
     )
   );
   main_raw_data = response.data;
-  console.log(main_raw_data);
+  // console.log(main_raw_data);
 }
 
 app.get("/", (req, res) => {
