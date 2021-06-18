@@ -9,7 +9,7 @@ const dataFilter = (raw_data) => {
   var vaccinatedList = [];
   for (var state in raw_data) {
     if (state === "TT" || state === "UN") {
-    //   console.log("Union places");
+      //   console.log("Union places");
     } else {
       conformedList = [];
       recoveredList = [];
@@ -20,30 +20,33 @@ const dataFilter = (raw_data) => {
       const dateKey = Object.keys(datesList).sort().slice(-10);
       for (let i = 0; i <= 9; i++) {
         const details = datesList[dateKey[i]];
-        if (details.total.confirmed) {
-          conformedList.push({ x: dateKey[i], y: details.total.confirmed });
-        } else {
-          // console.log(state, dateKey[i]);
-        }
-        if (details.total.recovered) {
-          recoveredList.push({ x: dateKey[i], y: details.total.recovered });
-        } else {
-          // console.log(state, dateKey[i]);
-        }
-        if (details.total.tested) {
-          testedList.push({ x: dateKey[i], y: details.total.tested });
-        } else {
-          // console.log(state, dateKey[i]);
-        }
-        if (details.total.deceased) {
-          deadList.push({ x: dateKey[i], y: details.total.deceased });
-        } else {
-          // console.log(state, dateKey[i]);
-        }
-        if (details.total.vaccinated) {
-          vaccinatedList.push({ x: dateKey[i], y: details.total.vaccinated });
-        } else {
-          // console.log(state, dateKey[i]);
+        if (details.delta) {
+          if (details.delta.confirmed) {
+            conformedList.push({ x: dateKey[i], y: details.delta.confirmed });
+          } else {
+            // console.log(state, dateKey[i]);
+          }
+          if (details.delta.recovered) {
+            recoveredList.push({ x: dateKey[i], y: details.delta.recovered });
+          } else {
+            // console.log(state, dateKey[i]);
+          }
+          if (details.delta.tested) {
+            testedList.push({ x: dateKey[i], y: details.delta.tested });
+          } else {
+            // console.log(state, dateKey[i]);
+          }
+          if (details.delta.deceased) {
+            deadList.push({ x: dateKey[i], y: details.delta.deceased });
+          } else {
+            // console.log(state, dateKey[i]);
+            // deadList.push({ x: dateKey[i], y: 0 });
+          }
+          if (details.delta.vaccinated) {
+            vaccinatedList.push({ x: dateKey[i], y: details.delta.vaccinated });
+          } else {
+            // console.log(state, dateKey[i]);
+          }
         }
       }
       var stateName = states[state];
