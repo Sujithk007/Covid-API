@@ -3,9 +3,10 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 const CircularJSON = require("circular-json");
 var cors = require("cors");
+const states = require("./state.json");
 
 const dataFilter = require("./dataFilter");
-
+var sg = {};
 // const fileData = require("./data.json");
 
 const app = express();
@@ -26,14 +27,21 @@ const update =  async()=>{
     )
   );
   main_raw_data = response.data;
+  sg = dataFilter(main_raw_data);
 }
 
 app.get("/", (req, res) => {
-  const sg = dataFilter(main_raw_data);
+  sg = dataFilter(main_raw_data);
   res.send(sg);
 });
 
-app.listen(9000, async() =>{
+app.get("/api/:stateName", (req,res)=>{
+  const data = req.params.stateName;
+  console.log(data);
+  res.send(sg[states[data]]);
+});
+
+app.listen(process.env.PORT || 9000, async() =>{
   await update();
   console.log("Server started at 9000...........");
   setInterval(async () => {
